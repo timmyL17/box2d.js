@@ -101,7 +101,7 @@ void* b2BlockAllocator::Allocate(int32 size)
 
 	b2Assert(0 < size);
 
-	if (size > b2_maxBlockSize)
+	if (1) //(size > b2_maxBlockSize)
 	{
 		return b2Alloc(size);
 	}
@@ -161,7 +161,7 @@ void b2BlockAllocator::Free(void* p, int32 size)
 
 	b2Assert(0 < size);
 
-	if (size > b2_maxBlockSize)
+	if (1) //(size > b2_maxBlockSize)
 	{
 		b2Free(p);
 		return;
