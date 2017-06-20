@@ -57,22 +57,25 @@ for (let i = 0; i < 100; i++) {
 
 let memDestroyBodies = checkMemory();
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 1000; i++) {
     let tmp = new box2d.b2BodyDef();
     let body = world.CreateBody(tmp);
+
+    box2d.destroy(tmp);
 
     let shape = new box2d.b2CircleShape();
     shape.set_m_radius(1);
     const fixtureDef = new box2d.b2FixtureDef();
     fixtureDef.set_shape(shape);
-    let fix = body.CreateFixture(fixtureDef);
-    body.DestroyFixture(fix);
-    world.DestroyBody(body);
+    //let fix = body.CreateFixture(fixtureDef);
+    body.CreateFixture(fixtureDef);
 
     box2d.destroy(shape);
     box2d.destroy(fixtureDef);
 
-    box2d.destroy(tmp);
+    world.Step(1.0/60.0, 3, 3);
+    //body.DestroyFixture(fix);
+    world.DestroyBody(body);
 }
 
 let memDestroyFixtures = checkMemory();
