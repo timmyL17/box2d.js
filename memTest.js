@@ -57,6 +57,26 @@ for (let i = 0; i < 100; i++) {
 
 let memDestroyBodies = checkMemory();
 
+for (let i = 0; i < 100; i++) {
+    let tmp = new box2d.b2BodyDef();
+    let body = world.CreateBody(tmp);
+
+    let shape = new box2d.b2CircleShape();
+    shape.set_m_radius(1);
+    const fixtureDef = new box2d.b2FixtureDef();
+    fixtureDef.set_shape(shape);
+    let fix = body.CreateFixture(fixtureDef);
+    body.DestroyFixture(fix);
+    world.DestroyBody(body);
+
+    box2d.destroy(shape);
+    box2d.destroy(fixtureDef);
+
+    box2d.destroy(tmp);
+}
+
+let memDestroyFixtures = checkMemory();
+
 //var b2Body = world.GetBodyList();
 //var items = 0;
 //while(box2d.getPointer(b2Body)){
@@ -68,5 +88,5 @@ let memDestroyBodies = checkMemory();
 
 //document.getElementById('text').innerHTML = '<p style="font-family:\'Lucida Console\', monospace">mem start: ' + memStart.toString() + '<br>mem after body def destroy: ' + memEnd.toString() + '<br>mem after destroy bodies__: ' + memDestroyBodies.toString() +'<br>count: ' + count + ' | items: ' + items + '</p>';
 
-document.getElementById('text').innerHTML = '<p style="font-family:\'Lucida Console\', monospace">mem start: ' + memStart.toString() + '<br>mem after body def destroy: ' + memEnd.toString() + '<br>mem after destroy bodies__: ' + memDestroyBodies.toString() + '</p>';
+document.getElementById('text').innerHTML = '<p style="font-family:\'Lucida Console\', monospace">mem start: ' + memStart.toString() + '<br>mem after body def destroy: ' + memEnd.toString() + '<br>mem after destroy bodies__: ' + memDestroyBodies.toString() + '<br>mem after destroy fixtures: ' + memDestroyFixtures.toString() +'</p>';
 
